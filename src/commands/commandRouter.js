@@ -13,7 +13,7 @@ function loadCommands(client, amogus) {
             if (message.content.startsWith('hola')) {
                 hola(message);
             }
-            else if (message.content.toLowerCase() === 'help' || message.content.toLowerCase() === prefix + 'help' || message.content.toLowerCase() === 'info') {
+            else if (message.content.toLowerCase() === 'help' || message.content.toLowerCase() === prefix + 'help' || message.content.toLowerCase() === 'info' || message.content.toLowerCase() === prefix + 'info') {
                 help(message);
             }
             else if (message.content.toLowerCase() === prefix + 'clear') {
