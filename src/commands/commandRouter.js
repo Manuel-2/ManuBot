@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 const { prefix } = require('../../data/config.json');
 const { errorMessage, errorImageLink } = require('../../data/statusMessages.json');
+const { serverEmojis } = require('../../data/serverEmojis.json');
 const hola = require('./hola.js');
 const help = require('./help.js');
 const clear = require('./clear.js');
@@ -27,7 +28,7 @@ function loadCommands(client, amogus) {
             }
             else if (message.content.toLowerCase().includes('sándwich') || message.content.toLowerCase().includes('sandwich')) {
                 await message.reply('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd4m7Z_mhKpIw-whftLymITDcgCOnFEjMZgQ&usqp=CAU');
-                await message.react('👍');
+                await message.react(serverEmojis.paimonFood);
                 message.channel.send(':kissing_heart::ok_hand:');
             }
         }
