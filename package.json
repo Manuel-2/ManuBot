@@ -1,0 +1,24 @@
+{
+  "name": "manubot",
+  "version": "1.0.0",
+  "description": "my first discord bot",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
+  },
+  "keywords": [],
+  "author": "Manuel2Code",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "among-us-ejection": "^2.0.0",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.5.0",
+    "node-fetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0"
+  }
+}

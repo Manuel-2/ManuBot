@@ -1,0 +1,5 @@
+{
+    "helpResponse": "**Info**\nhola ( ͡• ͜ʖ ͡• )   soy ManuBot un bot creado por Manuel-2, aca te dejo un poco de mi informacion:\n\n**prefix:**  -  (el signo de resta o guion, usalo al inicio de cada comando para que yo lo pueda detectar)\n\n**commandos:**\n-clear (elimina los ultimos 100 mensajes del canal)\n\n-sus @usuario (usa ese comando cuando creas que alguien es sus, lo expulsara de la nave)\n\n-resetgame (reinicia el juego de AMONGUS, selecionando un nuevo impostor de forma aleatoria y reviviendo a todos)\n\n(aun estoy en desarrollo y a la espera de que mi creador me añada mas funcionalidades)",
+    "permisionDenied": "Lo siento, solo mi jefe todo poderoso Manuel puede ejecutar ese comando, ya que borra los mensajes en el canal que se ejecute",
+    "errorImageLink": "https://pbs.twimg.com/media/FIhhCNNXsAMEqme?format=jpg&name=900x900"
+}
