@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 const { prefix } = require('../../data/config.json');
-const { errorImageLink } = require('../../data/statusMessages.json');
+const { errorMessage, errorImageLink } = require('../../data/statusMessages.json');
 const hola = require('./hola.js');
 const help = require('./help.js');
 const clear = require('./clear.js');
@@ -30,8 +30,9 @@ function loadCommands(client, amogus) {
             }
         }
         catch (error) {
-            message.channel.send(error.message);
+            message.channel.send(errorMessage);
             message.channel.send(errorImageLink);
+            message.channel.send(error.message);
             console.log(error.message);
         }
     });
