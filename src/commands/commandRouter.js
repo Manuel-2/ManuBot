@@ -26,7 +26,9 @@ function loadCommands(client, amogus) {
                 sus.commandResetGame(message, amogus);
             }
             else if (message.content.toLowerCase().includes('sándwich') || message.content.toLowerCase().includes('sandwich')) {
-                message.reply('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd4m7Z_mhKpIw-whftLymITDcgCOnFEjMZgQ&usqp=CAU');
+                await message.reply('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd4m7Z_mhKpIw-whftLymITDcgCOnFEjMZgQ&usqp=CAU');
+                await message.react('👍');
+                message.channel.send(':kissing_heart::ok_hand:');
             }
         }
         catch (error) {
