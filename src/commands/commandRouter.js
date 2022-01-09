@@ -36,6 +36,7 @@ function loadCommands(client, amogus) {
             message.channel.send(errorMessage);
             message.channel.send(errorImageLink);
             message.channel.send('Error message: ' + error.message);
+            message.react(serverEmojis.warning);
             console.log(error.message);
         }
     });
