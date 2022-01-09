@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 const eject = require('among-us-ejection');
-const { crew } = require('./susGameConfig.json');
+const { crew, victoryImage, defeatImage } = require('./susGameConfig.json');
+const { MessageEmbed } = require('discord.js');
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -14,8 +15,9 @@ class susGame {
         this.ejected = [];
         this.crewAmount = crew.length;
         this.impostor = getRandomInt(0, this.crewAmount - 1);
-        console.log('in the game SUS the impostor index is:' + this.impostor);
+        console.log('in the game SUS the impostor index is:' + crew[this.impostor]);
         this.remainImpostors = 1;
+        this.inGame = true;
     }
 
     ejectSomeone(crewMemberName) {
@@ -28,20 +30,57 @@ class susGame {
             isSus = true;
             this.remainImpostors = 0;
         }
-        this.wasEjected(crewMemberName);
-        const response = eject(sus, isSus, this.remainImpostors, 'The Skeld');
-        return response;
-    }
-
-    wasEjected(crewMemberName) {
         this.ejected.push(crewMemberName);
+        const response = eject(sus, isSus, this.remainImpostors, 'The Skeld');
+
+        if (this.ejected.length == this.crewAmount - 1 && !this.ejected.includes(crew[this.impostor])) {
+            this.inGame = false;
+            return {
+                response,
+                impostorWin: true,
+                crewWin: false,
+            };
+        }
+        else if (this.ejected.includes(crew[this.impostor])) {
+            this.inGame = false;
+            return {
+                response,
+                impostorWin: false,
+                crewWin: true,
+            };
+        }
+        else {
+            return {
+                response,
+                impostorWin: false,
+                crewWin: false,
+            };
+        }
     }
 
     resetGame() {
         this.impostor = getRandomInt(0, this.crewAmount - 1);
-        console.log('in the game SUS the impostor index is:' + this.impostor);
+        console.log('in the game SUS the impostor index is:' + crew[this.impostor]);
         this.remainImpostors = 1;
         this.ejected = [];
+    }
+
+    gameOver(status) {
+        console.log('gameover');
+        const embed = new MessageEmbed();
+        if (status == 'Defeat') {
+            embed.setTitle('Defeat');
+            embed.setColor('RED');
+            embed.setImage(defeatImage);
+            embed.setURL(defeatImage);
+        }
+        else if (status == 'Victory') {
+            embed.setTitle('Victory');
+            embed.setColor('BLUE');
+            embed.setImage(victoryImage);
+            embed.setURL(victoryImage);
+        }
+        return embed;
     }
 }
 
