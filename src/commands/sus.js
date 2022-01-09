@@ -32,23 +32,54 @@ const susGame = {
 
     commandCreateNewSusGame(message, amogus) {
         amogus.createNewGame(message.author.username);
-        message.reply('Se ah creado una nueva sala, recuerden usen el comando `-susJoin` para unirse, ya que esten listos usen `-susStart` para inicar el juego');
+        message.reply('Se ah creado una nueva sala y la anterior se ah borrado, recuerden usen el comando `-susJoin` para unirse, ya que esten listos usen `-susStart` para inicar el juego');
     },
 
     commandJoinPlayerToSusGame(message, amogus) {
+        if (amogus.gameCanceled || !amogus.thereIsGame) {
+            message.reply('no hay ningun juego al que puedas unirte, crea uno con `-susCreate`');
+            return;
+        }
+
         if (amogus.userJoined.length > 0) {
             if (amogus.userJoined.includes(message.author.username)) {
                 message.reply('tu ya estas dentro del juego, tu no puedes añadir a los demas');
                 return;
             }
         }
-        const usersList = amogus.addPlayer(message.author.username);
-        message.channel.send(usersList);
+        if (amogus.gameHasStarted) {
+            message.reply('ya hay un juego en marcha, si quieren incluirte pueden usar `-susCreate` para reinicar');
+        }
+        else {
+            const usersList = amogus.addPlayer(message.author.username);
+            message.channel.send(usersList);
+        }
     },
 
     commandStartSusGame(message, amogus) {
-        amogus.startGame();
-        message.reply('El juego a iniciado, hay un Impostor entre nosotros ඞ');
+        if (amogus.gameCanceled || !amogus.thereIsGame) {
+            message.reply('no hay ningun juego para iniciar, crea uno con `-susCreate`');
+            return;
+        }
+        // TODO: este commando no se puede llamar una vez que el juega ya inicio, en caso de que se llame este commando sugerirle al usuario usar el commando para canelar
+        if (amogus.gameCanceled) {
+            message.reply('No hay un Juego disponible, puedes crearlo con el comando `-susCreate` y despues ya puedes ejecutar `-susStart`');
+        }
+        else if (!amogus.gameCanceled && amogus.gameHasStarted) {
+            message.reply('Ya hay un juego en marcha, si quieres cancelar el actual y salir usa: `-susCancel`, si quieres cancelar e inicar otra usa `-susCreate`');
+        }
+        else if (!amogus.gameCanceled && !amogus.gameHasStarted) {
+            amogus.startGame();
+            message.reply('El juego a iniciado, hay un Impostor entre nosotros ඞ');
+        }
+    },
+
+    // TODO: añade un comando para cancelar la partida
+    commandCancelSusGame(message, amogus) {
+        if (!amogus.gameCanceled || amogus.thereIsGame) {
+            message.reply('Juego cancelado, puedes crear otro con `-susCreate`');
+            amogus.exitGame();
+        }
     },
 };
 

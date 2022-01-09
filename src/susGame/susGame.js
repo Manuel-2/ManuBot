@@ -11,6 +11,11 @@ function getRandomInt(min, max) {
 
 class susGame {
 
+    constructor() {
+        this.gameCanceled = false;
+        this.thereIsGame = false;
+    }
+
     ejectSomeone(crewMemberName) {
         if (this.ejected.includes(crewMemberName)) {
             return 'a ese men ya lo expulsaron de la nave por sus';
@@ -73,6 +78,8 @@ class susGame {
         this.userJoined.push(crew[0]);
         this.gameHasStarted = false;
         this.inGame = false;
+        this.thereIsGame = true;
+        this.gameCanceled = false;
         // for later
         this.remainImpostors = 1;
         this.ejected = [];
@@ -97,6 +104,10 @@ class susGame {
         console.log(this.crew[this.impostor]);
         this.gameHasStarted = true;
         this.inGame = true;
+    }
+
+    exitGame() {
+        this.gameCanceled = true;
     }
 }
 

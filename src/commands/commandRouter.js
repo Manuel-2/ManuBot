@@ -33,6 +33,10 @@ function loadCommands(client, amogus) {
                 // start
                 sus.commandStartSusGame(message, amogus);
             }
+            else if (message.content.toLowerCase() === prefix + 'suscancel') {
+                // cancel
+                sus.commandCancelSusGame(message, amogus);
+            }
             else if (message.content.toLowerCase().startsWith(prefix + 'sus')) {
                 sus.commandSus(message, amogus);
             }
