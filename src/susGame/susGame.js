@@ -14,12 +14,13 @@ class susGame {
         this.ejected = [];
         this.crewAmount = crew.length;
         this.impostor = getRandomInt(0, this.crewAmount - 1);
+        console.log('in the game SUS the impostor index is:' + this.impostor);
         this.remainImpostors = 1;
     }
 
     ejectSomeone(crewMemberName) {
         if (this.ejected.includes(crewMemberName)) {
-            return 'that dude was already ejected';
+            return 'a ese men ya lo expulsaron de la nave por sus';
         }
         const sus = crewMemberName;
         let isSus = false;
@@ -38,6 +39,7 @@ class susGame {
 
     resetGame() {
         this.impostor = getRandomInt(0, this.crewAmount - 1);
+        console.log('in the game SUS the impostor index is:' + this.impostor);
         this.remainImpostors = 1;
         this.ejected = [];
     }

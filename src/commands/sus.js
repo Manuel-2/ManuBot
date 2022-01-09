@@ -2,7 +2,7 @@
 const susGame = {
     commandSus(message, amogus) {
         if (amogus.ejected.includes(message.author.username)) {
-            message.reply('I\'m sorry, you were already ejected from the ship, so you can\'t eject people :(');
+            message.reply('lo siento pero ya te expulsaron de la nave, por lo cual estando muerto no puedes expulsar :(');
             return;
         }
         if (message.mentions.users.size == 0) {
@@ -15,7 +15,7 @@ const susGame = {
     },
     commandResetGame(message, amogus) {
         amogus.resetGame();
-        message.reply('Among Us Game has been reset');
+        message.reply('Se a selecionando un impostor aleatorio y revivido a todos\nEl juego del AMOGUS se a reiniciado');
     },
 };
 module.exports = susGame;
