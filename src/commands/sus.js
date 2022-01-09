@@ -2,12 +2,16 @@
 
 const susGame = {
     commandSus(message, amogus) {
+        if (!amogus.gameHasStarted) {
+            message.reply('Tienes que empezar el juego antes de poder expulsar a alguien por sus, si ya todos estan listos usa el comando: `-susStart` o tambien puede que no hayas creado una partida, para hacerlo usa el comando `-susCreate`');
+            return;
+        }
         if (amogus.ejected.includes(message.author.username)) {
             message.reply('lo siento pero ya te expulsaron de la nave, por lo cual estando muerto no puedes expulsar :(');
             return;
         }
         if (message.mentions.users.size == 0) {
-            message.reply('Uso incorrecto del comando -sus, para usarlo es nesesario indicar quien es sus de la sig forma: **-sus @Usuario**');
+            message.reply('Uso incorrecto del comando -sus, para usarlo es nesesario indicar quien es sus de la sig forma: `-sus @Usuario`');
         }
         else if (!amogus.inGame) {
             message.reply('Lo siento el juego termino, puedes iniciar otro con `-resetgame`');
@@ -25,9 +29,27 @@ const susGame = {
             }
         }
     },
-    commandResetGame(message, amogus) {
-        amogus.resetGame();
-        message.reply('Se a selecionando un impostor aleatorio y revivido a todos\nEl juego del AMOGUS se a reiniciado');
+
+    commandCreateNewSusGame(message, amogus) {
+        amogus.createNewGame(message.author.username);
+        message.reply('Se ah creado una nueva sala, recuerden usen el comando `-susJoin` para unirse, ya que esten listos usen `-susStart` para inicar el juego');
+    },
+
+    commandJoinPlayerToSusGame(message, amogus) {
+        if (amogus.userJoined.length > 0) {
+            if (amogus.userJoined.includes(message.author.username)) {
+                message.reply('tu ya estas dentro del juego, tu no puedes añadir a los demas');
+                return;
+            }
+        }
+        const usersList = amogus.addPlayer(message.author.username);
+        message.channel.send(usersList);
+    },
+
+    commandStartSusGame(message, amogus) {
+        amogus.startGame();
+        message.reply('El juego a iniciado, hay un Impostor entre nosotros ඞ');
     },
 };
+
 module.exports = susGame;

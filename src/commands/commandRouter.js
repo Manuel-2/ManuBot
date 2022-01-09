@@ -21,11 +21,20 @@ function loadCommands(client, amogus) {
             else if (message.content.toLowerCase() === prefix + 'clear') {
                 clear(message);
             }
+            else if (message.content.toLowerCase() === prefix + 'suscreate') {
+                // create
+                sus.commandCreateNewSusGame(message, amogus);
+            }
+            else if (message.content.toLowerCase() === prefix + 'susjoin') {
+                // add
+                sus.commandJoinPlayerToSusGame(message, amogus);
+            }
+            else if (message.content.toLowerCase() === prefix + 'susstart') {
+                // start
+                sus.commandStartSusGame(message, amogus);
+            }
             else if (message.content.toLowerCase().startsWith(prefix + 'sus')) {
                 sus.commandSus(message, amogus);
-            }
-            else if (message.content.toLowerCase() === prefix + 'resetgame') {
-                sus.commandResetGame(message, amogus);
             }
             else if (message.content.toLowerCase() === prefix + 'meme') {
                 meme(message);

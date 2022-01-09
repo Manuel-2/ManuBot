@@ -10,15 +10,6 @@ function getRandomInt(min, max) {
 }
 
 class susGame {
-    constructor() {
-        this.crew = crew;
-        this.ejected = [];
-        this.crewAmount = crew.length;
-        this.impostor = getRandomInt(0, this.crewAmount - 1);
-        console.log('in the game SUS the impostor index is:' + crew[this.impostor]);
-        this.remainImpostors = 1;
-        this.inGame = true;
-    }
 
     ejectSomeone(crewMemberName) {
         if (this.ejected.includes(crewMemberName)) {
@@ -26,27 +17,27 @@ class susGame {
         }
         const sus = crewMemberName;
         let isSus = false;
-        if (crew.indexOf(crewMemberName) == this.impostor) {
+        if (this.crew.indexOf(crewMemberName) == this.impostor) {
             isSus = true;
             this.remainImpostors = 0;
         }
         this.ejected.push(crewMemberName);
         const response = eject(sus, isSus, this.remainImpostors, 'The Skeld');
 
-        if (this.ejected.length == this.crewAmount - 1 && !this.ejected.includes(crew[this.impostor])) {
-            this.inGame = false;
-            return {
-                response,
-                impostorWin: true,
-                crewWin: false,
-            };
-        }
-        else if (this.ejected.includes(crew[this.impostor])) {
+        if (isSus) {
             this.inGame = false;
             return {
                 response,
                 impostorWin: false,
                 crewWin: true,
+            };
+        }
+        else if (!isSus && this.crew.length - this.ejected.length == 1) {
+            this.inGame = false;
+            return {
+                response,
+                impostorWin: true,
+                crewWin: false,
             };
         }
         else {
@@ -56,13 +47,6 @@ class susGame {
                 crewWin: false,
             };
         }
-    }
-
-    resetGame() {
-        this.impostor = getRandomInt(0, this.crewAmount - 1);
-        console.log('in the game SUS the impostor index is:' + crew[this.impostor]);
-        this.remainImpostors = 1;
-        this.ejected = [];
     }
 
     gameOver(status) {
@@ -81,6 +65,38 @@ class susGame {
             embed.setURL(victoryImage);
         }
         return embed;
+    }
+
+    createNewGame(userCreator) {
+        this.userJoined = [];
+        this.userJoined.push(userCreator);
+        this.userJoined.push(crew[0]);
+        this.gameHasStarted = false;
+        this.inGame = false;
+        // for later
+        this.remainImpostors = 1;
+        this.ejected = [];
+        this.crew = [];
+    }
+
+    addPlayer(playerUserName) {
+        this.userJoined.push(playerUserName);
+        let userJoinedListSyle = '';
+        this.userJoined.forEach(user => {
+            userJoinedListSyle += '     +' + user + '\n';
+        });
+        return userJoinedListSyle;
+    }
+
+    startGame() {
+        this.userJoined.forEach(user => {
+            this.crew.push(user);
+        });
+        this.crewAmount = this.crew.length;
+        this.impostor = getRandomInt(0, this.crewAmount - 1);
+        console.log(this.crew[this.impostor]);
+        this.gameHasStarted = true;
+        this.inGame = true;
     }
 }
 
