@@ -5,6 +5,7 @@ const { serverEmojis } = require('../../data/serverEmojis.json');
 const hola = require('./hola.js');
 const help = require('./help.js');
 const clear = require('./clear.js');
+const meme = require('./meme.js');
 const sus = require('./sus.js');
 
 function loadCommands(client, amogus) {
@@ -25,6 +26,9 @@ function loadCommands(client, amogus) {
             }
             else if (message.content.toLowerCase() === prefix + 'resetgame') {
                 sus.commandResetGame(message, amogus);
+            }
+            else if (message.content.toLowerCase() === prefix + 'meme') {
+                meme(message);
             }
             else if (message.content.toLowerCase().includes('sándwich') || message.content.toLowerCase().includes('sandwich')) {
                 await message.reply('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd4m7Z_mhKpIw-whftLymITDcgCOnFEjMZgQ&usqp=CAU');
