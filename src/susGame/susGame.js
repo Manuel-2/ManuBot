@@ -69,6 +69,7 @@ class susGame {
             embed.setImage(victoryImage);
             embed.setURL(victoryImage);
         }
+        this.inGame = false;
         return embed;
     }
 
@@ -104,6 +105,9 @@ class susGame {
         console.log(this.crew[this.impostor]);
         this.gameHasStarted = true;
         this.inGame = true;
+        if (this.crewAmount == 2) {
+            return true;
+        }
     }
 
     exitGame() {

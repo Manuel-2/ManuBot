@@ -22,10 +22,12 @@ const susGame = {
             if (impostorWin && !crewWin) {
                 const defatMessage = amogus.gameOver('Defeat');
                 message.channel.send({ embeds: [defatMessage] });
+                message.channel.send('Gano: ' + amogus.crew[amogus.impostor]);
             }
             else if (crewWin && !impostorWin) {
                 const victoryMessage = amogus.gameOver('Victory');
                 message.channel.send({ embeds: [victoryMessage] });
+                message.channel.send('Perdio: ' + amogus.crew[amogus.impostor]);
             }
         }
     },
@@ -69,8 +71,30 @@ const susGame = {
             message.reply('Ya hay un juego en marcha, si quieres cancelar el actual y salir usa: `-susCancel`, si quieres cancelar e inicar otra usa `-susCreate`');
         }
         else if (!amogus.gameCanceled && !amogus.gameHasStarted) {
-            amogus.startGame();
+            const alone = amogus.startGame();
             message.reply('El juego a iniciado, hay un Impostor entre nosotros ඞ');
+            if (alone) {
+                message.reply('Solo estamos tu y yo ...');
+                setTimeout(function () {
+                    message.channel.send('...');
+                    setTimeout(function () {
+                        if (amogus.inGame) {
+                            const { response, impostorWin, crewWin } = amogus.ejectSomeone(amogus.crew[0]);
+                            message.reply(response);
+                            if (impostorWin && !crewWin) {
+                                const defatMessage = amogus.gameOver('Defeat');
+                                message.channel.send({ embeds: [defatMessage] });
+                                message.channel.send('Gano: ' + amogus.crew[amogus.impostor]);
+                            }
+                            else if (crewWin && !impostorWin) {
+                                const victoryMessage = amogus.gameOver('Victory');
+                                message.channel.send({ embeds: [victoryMessage] });
+                                message.channel.send('Perdio: ' + amogus.crew[amogus.impostor]);
+                            }
+                        }
+                    }, 3000);
+                }, 3000);
+            }
         }
     },
 
