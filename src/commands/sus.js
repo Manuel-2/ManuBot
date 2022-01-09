@@ -76,9 +76,12 @@ const susGame = {
 
     // TODO: añade un comando para cancelar la partida
     commandCancelSusGame(message, amogus) {
-        if (!amogus.gameCanceled || amogus.thereIsGame) {
+        if (!amogus.gameCanceled && amogus.thereIsGame) {
             message.reply('Juego cancelado, puedes crear otro con `-susCreate`');
             amogus.exitGame();
+        }
+        else {
+            message.reply('el juego ya esta cancelado, puedes crear otro con `-susCreate`');
         }
     },
 };
