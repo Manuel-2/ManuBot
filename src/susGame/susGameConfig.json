@@ -7,5 +7,30 @@
         "GaelGut302"
     ],
     "victoryImage": "https://s3-us-west-2.amazonaws.com/lasaga-blog/media/images/Among_us_1.original.jpg",
-    "defeatImage": "https://freewallpapers.dev/wp-content/uploads/2021/09/Yellow-Defeat-Crewmate-Among-Us-Wallpaper.jpg"
+    "defeatImage": "https://freewallpapers.dev/wp-content/uploads/2021/09/Yellow-Defeat-Crewmate-Among-Us-Wallpaper.jpg",
+    "statusMessages": {
+        "eject": {
+            "gameNotStartedError": "Tienes que empezar el juego antes de poder expulsar a alguien por sus, si ya todos estan listos usa el comando: `-susStart` o tambien puede que no hayas creado una partida, para hacerlo usa el comando `-susCreate`",
+            "playerHasLostError": "lo siento pero ya te expulsaron de la nave, por lo cual estando muerto no puedes expulsar :(",
+            "noMentionError": "Uso incorrecto del comando -sus, para usarlo es nesesario indicar quien es sus de la sig forma: `-sus @Usuario`",
+            "gameEndedError": "Lo siento el juego termino",
+            "noPlayerError": "El usuario que intentas expulsar, no esta dentro de la partida"
+        },
+        "createGame": {
+            "gameCreated": "Se a creado una nueva sala y la anterior se a borrado, recuerden usen el comando `-susJoin` para unirse, ya que esten listos usen `-susStart` para inicar el juego"
+        },
+        "joinPlayer": {
+            "noGameError": "no hay ningun juego al que puedas unirte, crea uno con `-susCreate`",
+            "alreadyInError": "tu ya estas dentro del juego, tu no puedes añadir a los demas",
+            "gameHasStartedError": "ya hay un juego en marcha, si quieren incluirte pueden usar `-susCreate` para reinicar"
+        },
+        "startGame": {
+            "noGame2StartError": "no hay ningun juego para iniciar, crea uno con `-susCreate`",
+            "gameAlreadyStartedError":"Ya hay un juego en marcha, si quieres cancelar el actual y salir usa: `-susCancel`, si quieres cancelar e inicar otra usa `-susCreate`" 
+        },
+        "cancelGame": {
+            "gameCanceled":"Juego cancelado, puedes crear otro con `-susCreate`",
+            "noGame2CancelError":"No hay ningun juego por cancelar, puedes crear otro con `-susCreate`"
+        }
+    }
 }

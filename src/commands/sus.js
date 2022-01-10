@@ -1,24 +1,45 @@
 /* eslint-disable indent */
+const { statusMessages } = require('../susGame/susGameConfig.json');
 
 const susGame = {
     commandSus(message, amogus) {
+
         if (!amogus.gameHasStarted) {
-            message.reply('Tienes que empezar el juego antes de poder expulsar a alguien por sus, si ya todos estan listos usa el comando: `-susStart` o tambien puede que no hayas creado una partida, para hacerlo usa el comando `-susCreate`');
+            // gameNotStartedError
+            message.reply(statusMessages.eject.gameNotStartedError);
             return;
         }
+
         if (amogus.ejected.includes(message.author.username)) {
-            message.reply('lo siento pero ya te expulsaron de la nave, por lo cual estando muerto no puedes expulsar :(');
+            // playerHasLostError
+            message.reply(statusMessages.eject.playerHasLostError);
             return;
         }
+
         if (message.mentions.users.size == 0) {
-            message.reply('Uso incorrecto del comando -sus, para usarlo es nesesario indicar quien es sus de la sig forma: `-sus @Usuario`');
+            // noMentionError
+            message.reply(statusMessages.eject.noMentionError);
+            return;
         }
-        else if (!amogus.inGame) {
-            message.reply('Lo siento el juego termino, puedes iniciar otro con `-resetgame`');
+
+        if (!amogus.inGame) {
+            // gameEndedError
+            message.reply(statusMessages.eject.gameEndedError);
+            return;
         }
-        else if (message.mentions.users.size > 0) {
-            const { response, impostorWin, crewWin } = amogus.ejectSomeone(message.mentions.users.at(0).username);
+
+        if (message.mentions.users.size > 0) {
+            const target = message.mentions.users.at(0).username;
+
+            if (!amogus.crew.includes(target)) {
+                // noPlayerError
+                message.reply(statusMessages.eject.noPlayerError);
+                return;
+            }
+
+            const { response, impostorWin, crewWin } = amogus.ejectSomeone(target);
             message.reply(response);
+
             if (impostorWin && !crewWin) {
                 const defatMessage = amogus.gameOver('Defeat');
                 message.channel.send({ embeds: [defatMessage] });
@@ -34,23 +55,26 @@ const susGame = {
 
     commandCreateNewSusGame(message, amogus) {
         amogus.createNewGame(message.author.username);
-        message.reply('Se ah creado una nueva sala y la anterior se ah borrado, recuerden usen el comando `-susJoin` para unirse, ya que esten listos usen `-susStart` para inicar el juego');
+        message.reply(statusMessages.createGame.gameCreated);
     },
 
     commandJoinPlayerToSusGame(message, amogus) {
         if (amogus.gameCanceled || !amogus.thereIsGame) {
-            message.reply('no hay ningun juego al que puedas unirte, crea uno con `-susCreate`');
+            // noGameError
+            message.reply(statusMessages.joinPlayer.noGameError);
             return;
         }
 
         if (amogus.userJoined.length > 0) {
             if (amogus.userJoined.includes(message.author.username)) {
-                message.reply('tu ya estas dentro del juego, tu no puedes añadir a los demas');
+                // alreadyInError
+                message.reply(statusMessages.joinPlayer.alreadyInError);
                 return;
             }
         }
         if (amogus.gameHasStarted) {
-            message.reply('ya hay un juego en marcha, si quieren incluirte pueden usar `-susCreate` para reinicar');
+            // gameHasStartedError
+            message.reply(statusMessages.joinPlayer.gameHasStartedError);
         }
         else {
             const usersList = amogus.addPlayer(message.author.username);
@@ -60,21 +84,22 @@ const susGame = {
 
     commandStartSusGame(message, amogus) {
         if (amogus.gameCanceled || !amogus.thereIsGame) {
-            message.reply('no hay ningun juego para iniciar, crea uno con `-susCreate`');
+            // noGame2StartError
+            message.reply(statusMessages.startGame.noGame2StartError);
             return;
         }
-        // TODO: este commando no se puede llamar una vez que el juega ya inicio, en caso de que se llame este commando sugerirle al usuario usar el commando para canelar
-        if (amogus.gameCanceled) {
-            message.reply('No hay un Juego disponible, puedes crearlo con el comando `-susCreate` y despues ya puedes ejecutar `-susStart`');
+
+        if (!amogus.gameCanceled && amogus.gameHasStarted) {
+            // gameAlreadyStartedError
+            message.reply(statusMessages.startGame.gameAlreadyStartedError);
+            return;
         }
-        else if (!amogus.gameCanceled && amogus.gameHasStarted) {
-            message.reply('Ya hay un juego en marcha, si quieres cancelar el actual y salir usa: `-susCancel`, si quieres cancelar e inicar otra usa `-susCreate`');
-        }
-        else if (!amogus.gameCanceled && !amogus.gameHasStarted) {
+
+        if (!amogus.gameCanceled && !amogus.gameHasStarted) {
             const alone = amogus.startGame();
-            message.reply('El juego a iniciado, hay un Impostor entre nosotros ඞ');
+            message.channel.send('El juego a iniciado, hay un Impostor entre nosotros ඞ');
             if (alone) {
-                message.reply('Solo estamos tu y yo ...');
+                message.channel.send('Solo estamos tu y yo ...');
                 setTimeout(function () {
                     message.channel.send('...');
                     setTimeout(function () {
@@ -98,14 +123,13 @@ const susGame = {
         }
     },
 
-    // TODO: añade un comando para cancelar la partida
     commandCancelSusGame(message, amogus) {
         if (!amogus.gameCanceled && amogus.thereIsGame) {
-            message.reply('Juego cancelado, puedes crear otro con `-susCreate`');
+            message.reply(statusMessages.cancelGame.gameCanceled);
             amogus.exitGame();
         }
         else {
-            message.reply('el juego ya esta cancelado, puedes crear otro con `-susCreate`');
+            message.reply(statusMessages.cancelGame.noGame2CancelError);
         }
     },
 };
