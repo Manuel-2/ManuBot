@@ -103,7 +103,7 @@ const susGame = {
                 setTimeout(function () {
                     message.channel.send('...');
                     setTimeout(function () {
-                        if (amogus.inGame) {
+                        if (amogus.inGame && !amogus.gameCanceled) {
                             const { response, impostorWin, crewWin } = amogus.ejectSomeone(amogus.crew[0]);
                             message.reply(response);
                             if (impostorWin && !crewWin) {
