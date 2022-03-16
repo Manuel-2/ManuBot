@@ -7,7 +7,7 @@
         "GaelGut302"
     ],
     "victoryImage": "https://s3-us-west-2.amazonaws.com/lasaga-blog/media/images/Among_us_1.original.jpg",
-    "defeatImage": "https://freewallpapers.dev/wp-content/uploads/2021/09/Yellow-Defeat-Crewmate-Among-Us-Wallpaper.jpg",
+    "defeatImage": "https://preview.redd.it/150dnx8v90951.jpg?auto=webp&s=a42e1d53e50e01e212c39e3ddbf3d59eccf530d0",
     "statusMessages": {
         "eject": {
             "gameNotStartedError": "Tienes que empezar el juego antes de poder expulsar a alguien por sus, si ya todos estan listos usa el comando: `-susStart` o tambien puede que no hayas creado una partida, para hacerlo usa el comando `-susCreate`",

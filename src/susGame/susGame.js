@@ -89,9 +89,9 @@ class susGame {
 
     addPlayer(playerUserName) {
         this.userJoined.push(playerUserName);
-        let userJoinedListSyle = '';
+        let userJoinedListSyle = '**Jugadores:**\n';
         this.userJoined.forEach(user => {
-            userJoinedListSyle += '     +' + user + '\n';
+            userJoinedListSyle += '+' + user + '\n';
         });
         return userJoinedListSyle;
     }
@@ -102,7 +102,7 @@ class susGame {
         });
         this.crewAmount = this.crew.length;
         this.impostor = getRandomInt(0, this.crewAmount - 1);
-        console.log(this.crew[this.impostor]);
+        console.log('Impostor: ' + this.crew[this.impostor]);
         this.gameHasStarted = true;
         this.inGame = true;
         if (this.crewAmount == 2) {

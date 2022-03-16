@@ -100,7 +100,7 @@ const susGame = {
             message.channel.send('El juego a iniciado, hay un Impostor entre nosotros ඞ');
             if (alone) {
                 message.channel.send('Solo estamos tu y yo ...');
-                setTimeout(function () {
+                setTimeout(function() {
                     message.channel.send('...');
                     setTimeout(function () {
                         if (amogus.inGame && !amogus.gameCanceled) {
