@@ -1,6 +1,7 @@
 const { Client, Intents } = require('discord.js');
-const { token } = require('../data/config.json');
+// const { token } = require('../data/config.json');
 const loadCommands = require('./commands/commandRouter.js');
+const token = process.env.TOKEN;
 
 const susGame = require('./susGame/susGame.js');
 const amogus = new susGame();
