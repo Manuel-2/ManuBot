@@ -35,7 +35,7 @@ function loadCommands(client, amogus) {
                 await message.react(serverEmojis.paimonFood);
                 message.channel.send(':kissing_heart::ok_hand:');
             }
-            else if(message.content.toLowerCase().match(/manubot h?echate un gritote [A-Za-z1-9]*/ig)){
+            else if(message.content.toLowerCase() === "ahora el manubot tiene su propio servidor corriendo 24/7" && message.author.tag === 'Manuel-2#1186'){
                 await message.reply('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd4m7Z_mhKpIw-whftLymITDcgCOnFEjMZgQ&usqp=CAU');
                 message.channel.send('LET\'S GOOOOOOOO');
             }
